@@ -44,6 +44,8 @@ function tweet (imgBuffer, typeName) {
 
 const words = fs.readFileSync('words/list.txt').toString().split('\n')
 
+const tweetFrequency = 60 * 60 * 2
+
 function tick () {
   let progress
   if (fs.existsSync('progress.json')) progress = JSON.parse(fs.readFileSync('progress.json'))
@@ -59,6 +61,6 @@ function tick () {
   tweet(imgData, word)
 
   fs.writeFileSync('progress.json', progress + 1)
-  setTimeout(tick, 60 * 1000)
+  setTimeout(tick, tweetFrequency * 1000)
 }
-setTimeout(tick, (Date.now() % 60) * 1000)
+setTimeout(tick, (Date.now() % tweetFrequency) * 1000)
